@@ -1,108 +1,134 @@
 # AIMediaPost
 
-AIMediaPost is an AI-powered media posting tool that transforms text-based posts
-into audio-rich, shareable media content with background music.
+AIMediaPost is an AI-powered media generation toolkit
+for creating **audio-rich, social-ready posts** from text.
 
-It allows creators to publish **voice-based posts** without recording,
-editing, or complex production workflows.
+It focuses on transforming written content into
+voice narration, background-music–mixed audio,
+and shareable media assets without manual recording or editing.
 
 ---
 
 ## What this project does
 
-AIMediaPost provides a simple, end-to-end workflow for audio-first social posts.
+AIMediaPost provides modular building blocks
+for an audio-first media posting workflow.
 
-Users can:
+It allows developers and creators to:
 
-- Write or paste a text post (news, commentary, opinion, narration)
-- Convert the text into AI-generated speech (text-to-speech)
-- Mix the generated voice with background music
-- Preview and play the resulting audio
-- Use the output for SNS posts, radio-style content, or media publishing
+- Convert text posts into AI-generated voice narration
+- Mix narration with background music
+- Generate subtitle-based MP4 videos from audio
+- Create ready-to-post text captions for social platforms
 
-All steps are performed from a single web interface.
+The project is designed to support
+automated and repeatable media publishing workflows.
 
 ---
 
-## Outputs (What users get)
+## Outputs (What you can generate)
 
 - AI-generated narration audio
 - Background-music–mixed audio
-- Ready-to-post audio content for SNS
-- Built-in audio preview player
+- Subtitle-based MP4 videos
+- Social media post text (e.g. for X)
+
+These outputs can be combined or used independently
+depending on the publishing workflow.
 
 ---
 
-## Key features
+## Key components
 
-- Text-based post editor
-- One-click AI text-to-speech
-- Background music selection and mixing
-- Start time and volume adjustment for BGM
-- Audio preview and playback
-- Mobile-friendly UI
-- No microphone required
-- No manual recording or editing
+AIMediaPost is composed of small, focused generators.
+
+- **voicegen.php**  
+  Generates narration audio from text using a TTS backend.
+
+- **mp4gen.php**  
+  Converts audio and scripts into subtitle-based MP4 videos
+  suitable for social platforms.
+
+- **postgen.php**  
+  Generates short-form post text for social platforms
+  based on narration or script content.
+
+- **voicevox_api.py**  
+  Example backend implementation for text-to-speech processing.
+
+Each component can be used independently
+or orchestrated by an external UI or automation script.
 
 ---
 
 ## Typical use cases
 
-- Social commentary and opinion posts
-- News summaries and issue explanations
-- Radio-style short programs
-- Audio-first SNS content
-- Anonymous or faceless media publishing
+- Audio-first social media posts
+- Short-form narrated videos
+- News summaries and commentary
+- Radio-style micro content
+- Faceless or anonymous media publishing
+- Automated content pipelines
 
 ---
 
-## Philosophy
+## Design philosophy
 
 AIMediaPost is built on a simple idea:
 
-> If you can write it, you can broadcast it.
+> If you can write it, you can publish it as media.
 
-The tool lowers the barrier between **thought** and **media**,
-allowing individuals to turn written ideas into voice-based content instantly.
+The project emphasizes:
+
+- Minimal manual work
+- Clear separation of responsibilities
+- Scriptable and automatable workflows
+- Output-first design (audio, video, post text)
 
 ---
 
 ## Architecture overview
 
-AIMediaPost is intentionally designed to be simple and lightweight.
+- Core generators are implemented in PHP
+- Text-to-speech is handled by an external or local AI backend
+- Media processing relies on standard tools (e.g. ffmpeg)
+- No monolithic framework dependency
 
-- The entire UI and orchestration logic are implemented in PHP
-- Text-to-speech is handled via an external or local AI backend
-- Background music mixing is triggered directly from the UI
-
-All functionality is coordinated from a single entry point.
+UI and orchestration layers are intentionally excluded
+to keep the repository flexible and reusable.
 
 ---
 
 ## Extensibility
 
-Although minimal by design, AIMediaPost can be extended to:
+AIMediaPost can be extended to:
 
-- Swap text-to-speech engines
-- Add new background music sources
+- Support multiple TTS engines
+- Add narration style presets
 - Integrate audio-to-video pipelines
-- Connect external publishing or automation workflows
+- Connect social posting or automation systems
+- Adapt outputs for different platforms
 
 ---
 
 ## Repository structure
 
+```text
 .
-├── aimediapost.php  # Main UI, posting logic, audio generation and BGM mixing
+├── src/
+│   ├── voicegen.php
+│   ├── mp4gen.php
+│   ├── postgen.php
+│   └── voicevox_api.py
 └── README.md
 
 ---
 
 ## Requirements
 
-- PHP-compatible web server
+- PHP-compatible runtime
 - AI text-to-speech backend (external or local)
-- ffmpeg (for audio processing)
+- ffmpeg (for audio and video processing)
 
 ---
 
