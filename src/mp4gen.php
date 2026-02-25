@@ -2,7 +2,7 @@
 // =========================================
 // audio2mp4.php
 // 画像 + mp3/wav URL + ラジオ台本 → mp4 生成（スクロール対応）
-// + 音声ファイル事前アップロード（専用ボタン）
+// + 音声音声ファイル事前アップロード（専用ボタン）
 // PHP5互換 / 機能削除なし
 // =========================================
 
@@ -20,6 +20,7 @@ if (!is_dir($musicDir)) {
 $msg = "";
 $result = null;
 $audio_url = "";
+$script_text = "";
 
 /* =========================
    音声アップロード専用処理
@@ -43,26 +44,14 @@ if (
             $mime = @mime_content_type($tmp_path);
         }
 
-        // MIMEから拡張子推定（拡張子が取れない/変な場合の救済）
         $mime_to_ext = "";
         if ($mime !== "") {
             $m = strtolower(trim($mime));
             if ($m === "audio/mpeg" || $m === "audio/mp3" || $m === "audio/x-mp3" || $m === "audio/mpeg3") {
                 $mime_to_ext = "mp3";
             }
-            if (
-                $m === "audio/wav"
-                || $m === "audio/x-wav"
-                || $m === "audio/wave"
-                || $m === "audio/x-pn-wav"
-                || $m === "application/octet-stream" // サーバによってはwavでもこうなる事がある
-            ) {
-                // ここはwav確定とは言い切れないが、拡張子がwavならOKにする救済
-                // mimeだけでwavにするのは危険なので、後段で最終判定する
-            }
         }
 
-        // よくある拡張子ゆれ救済
         if ($ext === "mpeg") $ext = "mp3";
 
         $is_mp3 = false;
@@ -71,14 +60,10 @@ if (
         if ($ext === "mp3") $is_mp3 = true;
         if ($ext === "wav") $is_wav = true;
 
-        // 拡張子が取れない/変でもMIMEがmp3ならOK
         if (!$is_mp3 && !$is_wav && $mime_to_ext === "mp3") {
             $ext = "mp3";
             $is_mp3 = true;
         }
-
-        // wavはMIMEがブレやすいので「拡張子wavならOK」を基本にする
-        // （MIMEだけでwavと断定はしない）
 
         if ($is_mp3 || $is_wav) {
             $saveName = "music." . $ext;
@@ -86,19 +71,18 @@ if (
 
             if (move_uploaded_file($tmp_path, $savePath)) {
                 $audio_url = $musicUrlBase . "/" . $saveName;
-                $msg = "✅ 音声アップロード完了";
+                $msg = "✅ 楽曲/音声アップロード完了";
             } else {
-                $msg = "❌ 音声ファイルの保存に失敗しました";
+                $msg = "❌ 楽曲/音声ファイルの保存に失敗しました";
             }
         } else {
-            // デバッグ情報を表示（Notice出さない範囲で）
             $msg = "❌ mp3 または wav のみ対応しています"
                  . "<br>ファイル名: " . htmlspecialchars($org_name, ENT_QUOTES, "UTF-8")
                  . "<br>拡張子判定: " . htmlspecialchars($ext, ENT_QUOTES, "UTF-8")
                  . "<br>MIME判定: " . htmlspecialchars($mime, ENT_QUOTES, "UTF-8");
         }
     } else {
-        $msg = "❌ 音声ファイルを選択してください";
+        $msg = "❌ 楽曲/音声ファイルを選択してください";
     }
 }
 
@@ -170,43 +154,76 @@ if (
 <style>
 body {
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background:#f6f7f9;
+    background: radial-gradient(1200px 600px at 50% -20%, #1e293b, #020617);
+    color: #e5e7eb;
     padding:16px;
 }
 .wrap { max-width:720px; margin:0 auto; }
+
 .card {
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:16px;
-    padding:16px;
+    background: rgba(15, 23, 42, 0.92);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius:18px;
+    padding:18px;
     margin-bottom:16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
 }
-label { font-size:13px; display:block; margin-bottom:4px; }
-input[type=text], input[type=file], textarea {
-    width:100%;
-    padding:6px;
+
+h1, h2 {
+    font-size:18px;
+    margin:0 0 12px 0;
+    color:#f8fafc;
 }
+
+label {
+    font-size:12px;
+    color:#cbd5f5;
+    display:block;
+    margin-bottom:4px;
+}
+
+input[type=text],
+input[type=file],
 textarea {
-    min-height:160px;
+    width:100%;
+    padding:8px;
+    background:#020617;
+    color:#e5e7eb;
+    border:1px solid rgba(148,163,184,0.25);
+    border-radius:10px;
 }
+
+textarea { min-height:160px; }
+
 button {
     width:100%;
-    margin-top:12px;
-    padding:10px;
+    margin-top:14px;
+    padding:12px;
     border:0;
-    border-radius:10px;
-    background:#2563eb;
-    color:#fff;
+    border-radius:12px;
+    background: linear-gradient(135deg,#6366f1,#22d3ee);
+    color:#020617;
     font-size:14px;
+    font-weight:600;
+    cursor:pointer;
 }
+
 video {
     width:100%;
-    margin-top:8px;
-    border-radius:12px;
+    margin-top:10px;
+    border-radius:14px;
+    background:#000;
 }
+
+a {
+    color:#38bdf8;
+    word-break:break-all;
+}
+
 .note {
     font-size:12px;
-    color:#6b7280;
+    color:#94a3b8;
+    margin-top:8px;
 }
 </style>
 </head>
@@ -215,20 +232,20 @@ video {
 <div class="wrap">
 
 <div class="card">
-<h1>🎵 音声ファイルアップロード</h1>
+<h1>🎵 楽曲/音声ファイルアップロード</h1>
 
 <form method="post" enctype="multipart/form-data">
 <input type="hidden" name="upload_audio" value="1">
 
-<label>音声ファイル（mp3 / wav）</label>
+<label>楽曲/音声ファイル（mp3 / wav）</label>
 <input type="file" name="audio_file" accept=".mp3,.wav" required>
 
-<button type="submit">音声をアップロード</button>
+<button type="submit">楽曲/音声をアップロード</button>
 </form>
 </div>
 
 <div class="card">
-<h1>🎬 ラジオ音声＋台本 → MP4</h1>
+<h1>🎬 楽曲/音声＋テキスト字幕 → MP4</h1>
 
 <?php if ($msg !== ""): ?>
 <div><?php echo $msg; ?></div>
@@ -239,18 +256,30 @@ video {
 <label>① 背景画像</label>
 <input type="file" name="image" accept="image/*" required>
 
-<label style="margin-top:12px;">② 音声URL</label>
+<label style="margin-top:12px;">② 楽曲/音声URL</label>
 <input type="text" name="audio_url" value="<?php echo htmlspecialchars($audio_url, ENT_QUOTES, "UTF-8"); ?>" required>
 
-<label style="margin-top:12px;">③ ラジオ台本（スクロール表示）</label>
-<textarea name="script_text"></textarea>
+<label style="margin-top:12px;">③ テキスト字幕（スクロール表示）</label>
+<textarea name="script_text"><?php
+$default_text = "AI思考の社会と音楽\n\n"
+              ."Youtube、Tiktok、XなどのSNSで\nコンテンツを配信しています。\n\n"
+              ."AIMediaPostで生成されています。\n\n";
 
-<button type="submit">MP4を生成</button>
+echo htmlspecialchars(
+    isset($script_text) && trim($script_text) !== "" ? $script_text : $default_text,
+    ENT_QUOTES,
+    "UTF-8"
+);
+?></textarea>
+
+<button type="submit">
+<?php echo $result ? "字幕を修正して再生成" : "MP4を生成"; ?>
+</button>
 </form>
 
 <div class="note">
-・先に音声をアップロードしてください<br>
-・URLが確定してから MP4 を生成します
+・先に楽曲/音声をアップロードしてください<br>
+・字幕を修正してすぐ再生成できます
 </div>
 </div>
 
