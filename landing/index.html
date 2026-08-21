@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AIMediaPost – Autonomous Media Publishing</title>
+<meta name="description" content="AIMediaPost is a layered AI media publishing platform that transforms text into voice, music, video, and social-ready content. Open-source, self-hostable, and autonomous.">
+
+<meta name="keywords" content="AI media publishing, AI content automation, text to voice, AI video generator, autonomous publishing platform, open source AI media, AIKnowledgeCMS, AIRadio">
+
+<meta name="author" content="AIMediaPost">
+
+<meta property="og:title" content="AIMediaPost – Layered AI Media Publishing Platform">
+<meta property="og:description" content="Transform text into voice, music, video and social media content automatically. A layered autonomous AI publishing platform.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://exbridge.jp/aidexx/">
+<meta property="og:image" content="https://exbridge.jp/aidexx/images/aimediapost_mp4gen.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AIMediaPost – AI Media Publishing Platform">
+<meta name="twitter:description" content="Autonomous AI platform that converts text into voice, video and social-ready media.">
+<meta name="twitter:image" content="https://exbridge.jp/aidexx/images/aimediapost_mp4gen.png">
+
+
+<style>
+/* =========================
+   Base
+========================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+  background: radial-gradient(1200px 600px at 20% -10%, #1b1f3b, #06070c 60%);
+  color: #e5e7eb;
+  line-height: 1.6;
+}
+
+a {
+  color: #7dd3fc;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1100px;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+/* =========================
+   Header
+========================= */
+header {
+  padding: 80px 0 120px;
+}
+
+.logo {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  color: #9ca3af;
+}
+
+h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 500;
+  margin: 24px 0;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #cbd5f5;
+  max-width: 640px;
+}
+
+.hero-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  transition: all .25s ease;
+}
+
+.btn.primary {
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: .9;
+}
+
+/* =========================
+   Sections
+========================= */
+section {
+  padding: 100px 0;
+}
+
+.section-title {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  color: #9ca3af;
+  max-width: 700px;
+}
+
+/* =========================
+   Features
+========================= */
+.features {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.feature {
+  padding: 24px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.feature h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.feature p {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* =========================
+   Horizontal Screens
+========================= */
+.screenshots {
+  margin-top: 60px;
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px;
+}
+
+.screen-card {
+  min-width: 280px;
+  max-width: 280px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.screen-image img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.screen-card h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.screen-card p {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+/* =========================
+   Divider
+========================= */
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.2),
+    transparent
+  );
+}
+
+/* =========================
+   Footer
+========================= */
+footer {
+  padding: 60px 0 80px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+@media (min-width: 768px) {
+  .screen-card {
+    min-width: 420px;
+    max-width: 420px;
+  }
+}
+/* =========================
+   Reviews
+========================= */
+.reviews {
+  margin-top: 60px;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 20px;
+}
+
+.review-card {
+  min-width: 300px;
+  max-width: 300px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #e5e7eb;
+  margin-bottom: 16px;
+}
+
+.review-user {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "AIMediaPost",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Web",
+  "description": "A layered AI media publishing platform that transforms text into voice, music, video, and social-ready content.",
+  "url": "https://exbridge.jp/aidexx/",
+  "author": {
+    "@type": "Organization",
+    "name": "AIMediaPost"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">AIMEDIAPOST</div>
+
+    <h1>
+      Layered AI Media<br />
+      Publishing Protocol & Platform
+    </h1>
+
+    <p class="subtitle">
+      Text → Voice → Music → Video → Social<br />
+      All media, generated and published in one flow.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="https://exbridge.jp/aidexx/mp4gen.php" class="btn primary">Launch App</a>
+      <a href="https://github.com/katsushi2441/AIMediaPost/" class="btn">View on GitHub</a>
+    </div>
+  </div>
+</header>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">How the AI Media Publishing Pipeline Works</h2>
+    <p class="section-desc">
+      AIMediaPost provides a complete media pipeline.
+      Swipe to explore each screen.
+    </p>
+
+    <div class="screenshots">
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_postgen.png" alt="Post Generator">
+        </div>
+        <h3>Post Generator</h3>
+        <p>Create and manage short-form posts with AI assistance.</p>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_voicegen.png" alt="Voice Generator">
+        </div>
+        <h3>Voice Generation</h3>
+        <p>Generate AI narration with adjustable tone and pacing.</p>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_mp4gen.png" alt="MP4 Generator">
+        </div>
+        <h3>MP4 Generator</h3>
+        <p>Convert images and audio into subtitle-ready MP4 files.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">Generated Content</h2>
+    <p class="section-desc">
+      Media generated by AIMediaPost and published directly to
+      YouTube and X.
+    </p>
+
+    <div class="screenshots">
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_x01.png" alt="AIMediaPost content on X">
+        </div>
+        <h3>X (Twitter)</h3>
+        <p>Short-form posts generated and published automatically.</p>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_x02.png" alt="AIMediaPost content on X">
+        </div>
+        <h3>X (Twitter)</h3>
+        <p>AI-generated text, voice, and visuals in real operation.</p>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_y01.png" alt="AIMediaPost content on YouTube">
+        </div>
+        <h3>YouTube</h3>
+        <p>MP4 videos with narration and subtitles generated by AI.</p>
+      </div>
+
+      <div class="screen-card">
+        <div class="screen-image">
+          <img src="images/aimediapost_y02.png" alt="AIMediaPost content on YouTube">
+        </div>
+        <h3>YouTube</h3>
+        <p>End-to-end media publishing without manual editing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">What is AIMediaPost?</h2>
+    <p class="section-desc">
+      AIMediaPost is an open-source system that transforms text into
+      ready-to-publish media.
+      No recording. No editing. No platform lock-in.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <h3>AI Text Generation</h3>
+        <p>Create short-form posts and scripts instantly.</p>
+      </div>
+      <div class="feature">
+        <h3>Neural Voice</h3>
+        <p>High-quality AI narration with natural pacing.</p>
+      </div>
+      <div class="feature">
+        <h3>Auto BGM Mix</h3>
+        <p>Music blended automatically with voice.</p>
+      </div>
+      <div class="feature">
+        <h3>Image → MP4</h3>
+        <p>Turn visuals into subtitle-ready video.</p>
+      </div>
+      <div class="feature">
+        <h3>SNS Ready</h3>
+        <p>Optimized output for X and social platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">Platform Architecture</h2>
+    <p class="section-desc">
+      AIMediaPost is not a single tool.
+      It is part of a layered AI Media Publishing Platform.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <h3>AIKnowledgeCMS</h3>
+        <p>
+          Knowledge Engine.<br />
+          Generates structured posts and AI-driven content.
+        </p>
+      </div>
+
+      <div class="feature">
+        <h3>AIRadio</h3>
+        <p>
+          Audio & Broadcast Engine.<br />
+          Continuous or scheduled voice distribution layer.
+        </p>
+      </div>
+
+      <div class="feature">
+        <h3>AICMSNano + Generators</h3>
+        <p>
+          Publishing & Media Layer.<br />
+          Converts text into voice, music, MP4, and SNS-ready assets.
+        </p>
+      </div>
+
+      <div class="feature">
+        <h3>Distribution</h3>
+        <p>
+          X, YouTube, Instagram, TikTok<br />
+          External platforms as output nodes.
+        </p>
+      </div>
+    </div>
+
+    <p class="section-desc" style="margin-top:40px;">
+      The platform expands by deepening each layer —
+      not by creating new standalone products.
+      Future features will integrate inside one of these pillars.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">Why Web3-like?</h2>
+    <p class="section-desc">
+      No centralized platform.
+      Self-hostable. API-first. MIT licensed.
+      Your media flow belongs to you.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="container">
+    <h2 class="section-title">User Voices</h2>
+    <p class="section-desc">
+      Built by creators, developers, and independent publishers.
+    </p>
+
+    <div class="reviews">
+      <div class="review-card">
+        <div class="review-text">
+          “I stopped editing audio manually.
+          AIMediaPost feels like a media protocol, not a tool.”
+        </div>
+        <div class="review-user">
+          — Indie Creator
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-text">
+          “Self-hostable and transparent.
+          This is how AI media tooling should be.”
+        </div>
+        <div class="review-user">
+          — OSS Developer
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-text">
+          “From text to MP4 in minutes.
+          Perfect for X and short-form platforms.”
+        </div>
+        <div class="review-user">
+          — Content Publisher
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="container">
+    © 2026 AIMediaPost — Open-source autonomous media system
+  </div>
+</footer>
+
+  <script defer src="https://kurage.exbridge.jp/js/oss-banners.js?v=20260822" data-ref="oss-lp-aimediapost"></script>
+</body>
+</html>
