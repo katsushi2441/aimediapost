@@ -75,7 +75,7 @@ if (isset($_POST["source_text"])) {
             "stream" => false
         ));
 
-        $ch = curl_init("https://exbridge.ddns.net/api/generate");
+        $ch = curl_init("https://exbridge.ddns.net:8012/api/generate");
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
